@@ -11,6 +11,10 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   templateUrl: './info-product.page.html',
   styleUrls: ['./info-product.page.scss'],
 })
+
+
+
+  //-----------------CLASE QUE CARGA EL PRODUCTO PARA EDITARLO ------------------------//
 export class InfoProductPage implements OnInit {
   @Input('Producto') private Producto: Producto;
   private valid: boolean;
@@ -21,8 +25,8 @@ export class InfoProductPage implements OnInit {
   private imagen3: string;
   private imagenBBD3: string;
   public tasks: FormGroup;
-  constructor(public alertController: AlertController, private modalController: ModalController, private apiS: ApiService
-    , private formBuilder: FormBuilder, private platform: Platform,
+  constructor(public alertController: AlertController, private modalController: ModalController, 
+    private apiS: ApiService, private formBuilder: FormBuilder, private platform: Platform,
     private navCtrl: NavController, public LoadingS: LoadingService,
     private camera: Camera, private router: Router) {
 
@@ -41,6 +45,12 @@ export class InfoProductPage implements OnInit {
     this.carga();
   }
 
+
+  /**
+* Metodo que carga el producto a editar
+
+* @param  Producto  Producto que se va a editar
+*/
   async carga() {
     this.LoadingS.presentLoading();
     this.Producto = await this.apiS.getProductoId(this.Producto.id);
@@ -66,12 +76,17 @@ export class InfoProductPage implements OnInit {
     this.clearimagenes();
   }
 
+
+
   private doRefresh(event) {
     setTimeout(async () => {
       this.carga();
       event.target.complete();
     }, 500);
   }
+
+
+
   private ionViewDidEnter() {
     console.log(this.tasks.get('categoria').value);
     this.tasks.get('name').setValue(this.Producto.name);
@@ -84,6 +99,14 @@ export class InfoProductPage implements OnInit {
 
   }
 
+
+
+        /**
+* Metodo que envia el formulario rellenado para añadir el producto
+
+* @param  Producto  Producto que se va a editar
+
+*/
   public async sendForm() {
 
     await this.LoadingS.presentLoading();
@@ -114,7 +137,17 @@ export class InfoProductPage implements OnInit {
         console.log(err);
       })
   }
+        /**
+* Metodo que accede a la camara
 
+* @param  this.image1  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD1  Imagen que se va a guardar en la base de datos
+* @param  this.image2  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD2  Imagen que se va a guardar en la base de datos
+* @param  this.image2  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD2  Imagen que se va a guardar en la base de datos
+
+*/
   private takePicture() {
     const options: CameraOptions = {
       quality: 100,
@@ -145,9 +178,19 @@ export class InfoProductPage implements OnInit {
       }, (err) => {
         console.log(err);
       });
-
-
   }
+
+
+            /**
+* Metodo que accede a la Galeria del teléfono
+
+* @param  this.image1  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD1  Imagen que se va a guardar en la base de datos
+* @param  this.image2  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD2  Imagen que se va a guardar en la base de datos
+* @param  this.image2  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD2  Imagen que se va a guardar en la base de datos
+*/ 
   private takeGallery() {
     const options: CameraOptions = {
       quality: 100,

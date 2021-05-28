@@ -13,6 +13,9 @@ import { UserOptions } from '../../interfaces/user-options';
   templateUrl: 'login.html',
   styleUrls: ['./login.scss'],
 })
+
+//Esta clase no se usa
+
 export class LoginPage {
   private login: UserOptions = { username: '', password: '' };
   private submitted = false;

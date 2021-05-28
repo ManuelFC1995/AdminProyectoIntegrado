@@ -12,6 +12,9 @@ import { LoadingService } from '../../services/loading.service';
   templateUrl: './addproduct.page.html',
   styleUrls: ['./addproduct.page.scss'],
 })
+
+
+  //-----------------CLASE PARA AÑADIR PRODUCTOS AL CATALOGO ------------------------//
 export class AddproductPage implements OnInit {
   private valid: boolean;
   private image1: string;
@@ -59,7 +62,13 @@ export class AddproductPage implements OnInit {
 
     
   }
+        /**
+* Metodo que envia el formulario rellenado para añadir el producto
 
+* @param  Producto  Producto que se va ainsertar
+
+
+*/
   public async sendForm() {
 
     this.Producto = {
@@ -102,7 +111,17 @@ export class AddproductPage implements OnInit {
          )
        */
   }
+        /**
+* Metodo que accede a la camara
 
+* @param  this.image1  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD1  Imagen que se va a guardar en la base de datos
+* @param  this.image2  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD2  Imagen que se va a guardar en la base de datos
+* @param  this.image2  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD2  Imagen que se va a guardar en la base de datos
+
+*/
   private takePicture() {
     const options: CameraOptions = {
       quality: 100,
@@ -129,13 +148,21 @@ export class AddproductPage implements OnInit {
             this.imagenBBD3 = imageData;
           }
         }
-
       }, (err) => {
         console.log(err);
       });
-
-
   }
+
+          /**
+* Metodo que accede a la Galeria del teléfono
+
+* @param  this.image1  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD1  Imagen que se va a guardar en la base de datos
+* @param  this.image2  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD2  Imagen que se va a guardar en la base de datos
+* @param  this.image2  Imagen que se va a mostrar en la pantalla
+* @param  this.imagenBBD2  Imagen que se va a guardar en la base de datos
+*/
   private takeGallery() {
     const options: CameraOptions = {
       quality: 100,
@@ -169,7 +196,7 @@ export class AddproductPage implements OnInit {
 
   }
 
-
+//Metodo que devuelve si hay fotos o no (Boolean)
 private hayFoto(){
   if (this.image1 != null) {
   return true
@@ -178,7 +205,11 @@ private hayFoto(){
   }
 }
 
+        /**
+* Metodo que hace aparecer el desplegable de la segunda categoria 
 
+
+*/
 private cambiarcategoria2(){
   if(this.tasks.get('categoria').value==''){
 this.category1=0;
@@ -207,6 +238,11 @@ this.category1=0;
   }
 }
 
+        /**
+* Método para mostrar el alerjir entre camara o galería
+
+
+*/
 async presentAlertFotos() {
 
   const alert = await this.alertController.create({
@@ -239,7 +275,7 @@ async presentAlertFotos() {
   let result = await alert.onDidDismiss();
   console.log(result);
 }
-
+//Metodo para limpiar las imagenes
   public clearimagenes() {
     this.image1 = null;
     this.imagen2 = null;
@@ -248,6 +284,8 @@ async presentAlertFotos() {
     this.imagenBBDD2 = null;
     this.imagenBBD3 = null;
   }
+
+  //metodo para el backbutton
   public atras() {
     this.modalController.dismiss();
   }

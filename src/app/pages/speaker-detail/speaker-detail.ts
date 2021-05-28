@@ -14,12 +14,14 @@ import { Pedido } from '../../model/Pedido';
   templateUrl: 'speaker-detail.html',
   styleUrls: ['./speaker-detail.scss'],
 })
+
+//-----------------CLASE QUE CARGA LOS DATOS DEL CLIENTE------------------------//
 export class SpeakerDetailPage {
   private speaker: any;
   private cliente: Cliente;
   private imagenPaypal = "/assets/img/Paypal.gif";
   private imagenTarjeta = "/assets/img/Tarjeta.gif";
-  
+
   private imagenEnvio = "/assets/img/envio.gif";
   public profileimg: string = "/assets/img/profile.png";
   constructor(
@@ -44,7 +46,7 @@ export class SpeakerDetailPage {
 
   async ngOnInit() {
 
-
+    //Carga el cliente que se le pasa desde la clase speaker-list
     this.dataProvider.load().subscribe(async (data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
       this.cliente = await this.apiS.getUserId(speakerId);
@@ -126,13 +128,18 @@ export class SpeakerDetailPage {
 
     await actionSheet.present();
   }
+  /**
+* Metodo que abre el modal para mostrar los datos del pedido
 
-  public async Pedido(Pedido:Pedido){
+* @param  Pedido  Pedido que se va a enviar al modal
+* @param  PedidoPage pagina que se av a abrir
+*/
+  public async Pedido(Pedido: Pedido) {
     const modal = await this.modalCtrl.create({
       component: PedidoPage,
       cssClass: 'my-custom-class',
-      componentProps:{
-        Pedido:Pedido
+      componentProps: {
+        Pedido: Pedido
       }
     });
     return await modal.present();

@@ -65,6 +65,12 @@ export class SpeakerListPage {
   }
 
 
+    /**
+* Método que abre el modal para mostrar los datos del producto
+
+* @param speakers  Carga todos los usuarios de la base de datos
+
+*/
   public async carga() {
 
     this.speakers = [];

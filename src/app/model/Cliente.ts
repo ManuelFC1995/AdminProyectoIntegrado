@@ -5,6 +5,5 @@ export interface Cliente {
     name?: string;
     surname?: string;
     email?: string;
-    
     pedidos?: Pedido[];
 }

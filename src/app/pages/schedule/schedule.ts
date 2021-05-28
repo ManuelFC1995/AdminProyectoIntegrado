@@ -18,7 +18,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./schedule.scss'],
 })
 export class SchedulePage implements OnInit {
-  // Gets a reference to the list element
+  //-----------------CLASE QUE CARGA LOS PRODUCTOS ------------------------//
   @ViewChild('scheduleList', { static: true }) private scheduleList: IonList;
   public listado: Array<Producto>;
   public listadoConFoto: Array<Producto> = [];
@@ -37,55 +37,43 @@ export class SchedulePage implements OnInit {
   private textoBuscar = '';
   private p: Producto[];
   constructor(
-    public alertCtrl: AlertController,
-    public confData: ConferenceData,
-    public loadingCtrl: LoadingService,
-    public LOadingCTR: LoadingController,
-    public modalCtrl: ModalController,
-    public router: Router,
-    public routerOutlet: IonRouterOutlet,
-    public toastCtrl: ToastController,
-    public user: UserData,
-    public config: Config,
-    private modalController: ModalController,
-    private apiS: ApiService,
-    private formBuilder: FormBuilder,
+    public alertCtrl: AlertController,public confData: ConferenceData, public loadingCtrl: LoadingService,
+    public LOadingCTR: LoadingController,public modalCtrl: ModalController,
+    public router: Router,public routerOutlet: IonRouterOutlet,
+    public toastCtrl: ToastController,public user: UserData, public config: Config,
+     private modalController: ModalController,private apiS: ApiService,
+     private formBuilder: FormBuilder,
   ) { }
 
   async ngOnInit() {
+    //Inicializa el formulario del filtros
     this.tasks = this.formBuilder.group({
-
-
       categoria: [null],
-
     })
-
+    //ejecuta la carga de datos  
     this.carga();
-    
     this.updateSchedule();
 
     this.ios = this.config.get('mode') === 'ios';
   }
 
-
-
-  private updateSchedule() {
-    // Close any open sliding items when the schedule updates
-    if (this.scheduleList) {
-      this.scheduleList.closeSlidingItems();
-    }
-
-    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
-    });
-  }
+  //Método para actualizar la página
   private doRefresh(event) {
     setTimeout(async () => {
       this.carga();
       event.target.complete();
     }, 500);
   }
+
+
+
+  /**
+* Metodo que carga los productos de la base de datos y si hay un filtro lo aplica a la lista
+
+* @param  category  criterio para filtrar la lista que se obtiene del desplegable
+
+*/
+
   public async carga() {
     this.category = this.tasks.get('categoria').value;
     this.listadoConFoto = [];
@@ -120,16 +108,14 @@ export class SchedulePage implements OnInit {
         }
 
       })
-    
     }
-
     this.listadoConFoto.reverse();
-    this.item=this.listadoConFoto.length;
+    this.item = this.listadoConFoto.length;
     this.loadingCtrl.loadingController.dismiss();
   }
 
   private ionViewDidEnter() {
-  
+
 
   }
   async presentFilter() {
@@ -174,24 +160,29 @@ export class SchedulePage implements OnInit {
     }
 
   }
+  /**
+* Metodo que Elimina el producto seleciconado
 
+* @param  id id del elemento a borrar en la base de datos
+
+*/
   public async borrarElemento(id: any) {
 
     this.apiS.removeProducto(id)
       .then(() => {
-        //ya está borrada allí
-
-
         let event;
         this.doRefresh(event);
         this.loadingCtrl.presentToast("Producto Borrado", "success");
       })
       .catch(err => {
-
-
+        this.loadingCtrl.presentToast("Error, el producto no se ha podido borrar", "danger");
       })
   }
+  /**
+* Metodo que muestra el alert para confirmar el borrado del producto
 
+* @param  id id del elemento a borrar en la base de datos
+*/
   async presentAlertConfirmDelete(id: any) {
 
     const alert = await this.alertCtrl.create({
@@ -260,6 +251,13 @@ export class SchedulePage implements OnInit {
     await loading.onWillDismiss();
     fab.close();
   }
+
+    /**
+* Método que abre el modal para mostrar los datos del producto
+
+* @param  Producto  Producto que se va a enviar al modal
+* @param  nfoProductPage pagina que se av a abrir
+*/
   public async infoproduct(Producto: Producto) {
     const modal = await this.modalController.create({
       component: InfoProductPage,
@@ -271,6 +269,12 @@ export class SchedulePage implements OnInit {
     return await modal.present();
   }
 
+
+  
+    /**
+* Método que abre el modal para añadir un producto
+
+*/
   public async Addproduct() {
     const modal = await this.modalController.create({
       component: AddproductPage,
@@ -284,10 +288,20 @@ export class SchedulePage implements OnInit {
 
   private Buscar(event) {
     this.textoBuscar = event.detail.value;
-   
+
   }
 
 
+  private updateSchedule() {
+    // Close any open sliding items when the schedule updates
+    if (this.scheduleList) {
+      this.scheduleList.closeSlidingItems();
+    }
 
+    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
+      this.shownSessions = data.shownSessions;
+      this.groups = data.groups;
+    });
+  }
 
 }
