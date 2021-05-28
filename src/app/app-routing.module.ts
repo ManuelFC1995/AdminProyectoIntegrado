@@ -32,7 +32,19 @@ const routes: Routes = [
     path: 'tutorial',
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule),
     canLoad: [CheckTutorial]
+  },  {
+    path: 'addproduct',
+    loadChildren: () => import('./pages/addproduct/addproduct.module').then( m => m.AddproductPageModule)
+  },
+  {
+    path: 'info-product',
+    loadChildren: () => import('./pages/info-product/info-product.module').then( m => m.InfoProductPageModule)
+  },
+  {
+    path: 'pedido',
+    loadChildren: () => import('./pages/pedido/pedido.module').then( m => m.PedidoPageModule)
   }
+
 ];
 
 @NgModule({

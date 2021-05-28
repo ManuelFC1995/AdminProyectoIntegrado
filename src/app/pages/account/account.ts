@@ -12,7 +12,7 @@ import { UserData } from '../../providers/user-data';
   styleUrls: ['./account.scss'],
 })
 export class AccountPage implements AfterViewInit {
-  username: string;
+  private username: string;
 
   constructor(
     public alertCtrl: AlertController,
@@ -24,7 +24,7 @@ export class AccountPage implements AfterViewInit {
     this.getUsername();
   }
 
-  updatePicture() {
+  private updatePicture() {
     console.log('Clicked to update picture');
   }
 
@@ -56,22 +56,22 @@ export class AccountPage implements AfterViewInit {
     await alert.present();
   }
 
-  getUsername() {
+  private getUsername() {
     this.userData.getUsername().then((username) => {
       this.username = username;
     });
   }
 
-  changePassword() {
+  private changePassword() {
     console.log('Clicked to change password');
   }
 
-  logout() {
+  private logout() {
     this.userData.logout();
     this.router.navigateByUrl('/login');
   }
 
-  support() {
+  private support() {
     this.router.navigateByUrl('/support');
   }
 }

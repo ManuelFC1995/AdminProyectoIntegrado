@@ -10,9 +10,9 @@ import { UserData } from '../../providers/user-data';
   templateUrl: 'session-detail.html'
 })
 export class SessionDetailPage {
-  session: any;
-  isFavorite = false;
-  defaultHref = '';
+  private session: any;
+  private isFavorite = false;
+  private defaultHref = '';
 
   constructor(
     private dataProvider: ConferenceData,
@@ -20,7 +20,7 @@ export class SessionDetailPage {
     private route: ActivatedRoute
   ) { }
 
-  ionViewWillEnter() {
+  private ionViewWillEnter() {
     this.dataProvider.load().subscribe((data: any) => {
       if (data && data.schedule && data.schedule[0] && data.schedule[0].groups) {
         const sessionId = this.route.snapshot.paramMap.get('sessionId');
@@ -43,15 +43,15 @@ export class SessionDetailPage {
     });
   }
 
-  ionViewDidEnter() {
+  private ionViewDidEnter() {
     this.defaultHref = `/app/tabs/schedule`;
   }
 
-  sessionClick(item: string) {
+  private sessionClick(item: string) {
     console.log('Clicked', item);
   }
 
-  toggleFavorite() {
+  private toggleFavorite() {
     if (this.userProvider.hasFavorite(this.session.name)) {
       this.userProvider.removeFavorite(this.session.name);
       this.isFavorite = false;
@@ -61,7 +61,7 @@ export class SessionDetailPage {
     }
   }
 
-  shareSession() {
+  private shareSession() {
     console.log('Clicked share session');
   }
 }

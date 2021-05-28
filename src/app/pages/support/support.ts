@@ -10,8 +10,8 @@ import { AlertController, ToastController } from '@ionic/angular';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
-  submitted = false;
-  supportMessage: string;
+  private submitted = false;
+  private supportMessage: string;
 
   constructor(
     public alertCtrl: AlertController,

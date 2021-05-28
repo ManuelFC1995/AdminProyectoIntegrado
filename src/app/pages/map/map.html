@@ -3,10 +3,65 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Map</ion-title>
+    <form [formGroup]="tasksfiltro">
+      <ion-select  style="margin-left: 2px;margin-right: 15px;"interface="action-sheet" okText="Okay" formControlName="orden"
+      cancelText="Cancelar" placeholder="LISTA DE PEDIDOS" autocapitalize="true" auto-grow="true"
+      (ionChange)="this.carga()">
+      <ion-select-option value="new">Mas Recientes</ion-select-option>
+      <ion-select-option value="old">Mas antiguos</ion-select-option>
+      <ion-select-option value="price1">Mayor importe</ion-select-option>
+      <ion-select-option value="price2">Menor importe</ion-select-option>
+      <ion-select-option value="pendientes">Sin enviar</ion-select-option>
+      <ion-select-option value="enviados">Enviados</ion-select-option>
+    </ion-select>
+      </form>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div #mapCanvas class="map-canvas"></div>
+  <ion-refresher slot="fixed" style="--ion-text-color: #fdfaf4;" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-down-outline"></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card>
+    <ion-card-content class="ion-no-padding">
+      <ng-container>
+        <ion-item *ngFor="let item of pedidos " (click)="this.Pedido(item)">
+          <ng-container *ngIf="item.metedoPago === 'Tarjeta de crédito'">
+          <ion-thumbnail slot="start">
+            <ion-img style="width: 90px;margin-right: 20px;" [src]="imagenTarjeta"></ion-img>
+          </ion-thumbnail>
+          </ng-container>
+          <ng-container *ngIf="segmentModel === 'Paypal'">
+            <ion-thumbnail slot="start">
+              <ion-img style="width: 90px;margin-right: 20px;" [src]="imagenPaypal"></ion-img>
+            </ion-thumbnail>
+            </ng-container>
+            <ng-container *ngIf="item.metedoPago === 'Contrareembolso'">
+              <ion-thumbnail slot="start">
+                <ion-img style="width: 90px;margin-right: 20px;" [src]="imagenEnvio"></ion-img>
+              </ion-thumbnail>
+              </ng-container>
+              <ng-container *ngIf="item.metedoPago === null">
+                <ion-thumbnail slot="start">
+                  <ion-img style="width: 90px;margin-right: 20px;" [src]="imagenEnvio"></ion-img>
+                </ion-thumbnail>
+                </ng-container>
+          <ion-label style="margin-left: 28px;">
+          
+            <p><b>REF:</b>{{item.id}} <strong> IMPORTE:</strong>{{item.importe}} €</p>
+            <p >{{item.provincia}}, {{item.localidad}}</p>
+            <p style="color: rgb(127, 206, 95);" *ngIf="item.completado === true">Enviado</p>
+            <p style="color: rgb(231, 94, 94);" *ngIf="item.completado === false">Pendiente de envio</p>
+            <ion-text style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: smaller;">
+          FECHA : {{item.fecha_Compra}}
+            </ion-text>
+          </ion-label>
+   
+        </ion-item>
+      </ng-container>
+
+    </ion-card-content>
+  </ion-card>
 </ion-content>

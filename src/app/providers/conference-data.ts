@@ -9,7 +9,7 @@ import { UserData } from './user-data';
   providedIn: 'root'
 })
 export class ConferenceData {
-  data: any;
+  private data: any;
 
   constructor(public http: HttpClient, public user: UserData) {}
 
@@ -23,7 +23,7 @@ export class ConferenceData {
     }
   }
 
-  processData(data: any) {
+  private processData(data: any) {
     // just some good 'ol JS fun with objects and arrays
     // build up the data by linking speakers to sessions
     this.data = data;
@@ -88,7 +88,7 @@ export class ConferenceData {
     );
   }
 
-  filterSession(
+  private filterSession(
     session: any,
     queryWords: string[],
     excludeTracks: any[],
@@ -131,7 +131,7 @@ export class ConferenceData {
     session.hide = !(matchesQueryText && matchesTracks && matchesSegment);
   }
 
-  getSpeakers() {
+  private getSpeakers() {
     return this.load().pipe(
       map((data: any) => {
         return data.speakers.sort((a: any, b: any) => {
@@ -151,7 +151,7 @@ export class ConferenceData {
     );
   }
 
-  getMap() {
+  private getMap() {
     return this.load().pipe(
       map((data: any) => {
         return data.map;

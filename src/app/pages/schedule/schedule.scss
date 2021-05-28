@@ -5,7 +5,9 @@ ion-fab-button {
 
   --color: var(--ion-color-primary, #3880ff);
 }
-
+ion-toolbar {
+  --background:#ffd562 ;
+}
 /*
  * Material Design uses the ripple for activated
  * so only style the iOS activated background

@@ -4,12 +4,14 @@ import { IonicModule } from '@ionic/angular';
 
 import { MapPage } from './map';
 import { MapPageRoutingModule } from './map-routing.module';
+import { PedidoPageModule } from '../pedido/pedido.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    MapPageRoutingModule
+    MapPageRoutingModule,PedidoPageModule,ReactiveFormsModule
   ],
   declarations: [
     MapPage,

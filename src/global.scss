@@ -23,7 +23,7 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
+@import "./app/app.scss";
 
 /*
  * App CSS
@@ -32,4 +32,10 @@
  * the entire app.
  */
 
-@import "./app/app.scss";
+
+.loading-wrapper{
+--spinner-color:yellow;
+background:transparent !important;
+-webkit-box-shadow:none !important;
+
+}

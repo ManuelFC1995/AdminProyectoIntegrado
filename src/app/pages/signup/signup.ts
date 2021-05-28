@@ -14,15 +14,15 @@ import { UserOptions } from '../../interfaces/user-options';
   styleUrls: ['./signup.scss'],
 })
 export class SignupPage {
-  signup: UserOptions = { username: '', password: '' };
-  submitted = false;
+  private signup: UserOptions = { username: '', password: '' };
+  private submitted = false;
 
   constructor(
     public router: Router,
     public userData: UserData
   ) {}
 
-  onSignup(form: NgForm) {
+  private onSignup(form: NgForm) {
     this.submitted = true;
 
     if (form.valid) {

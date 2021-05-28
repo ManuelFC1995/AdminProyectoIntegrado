@@ -14,15 +14,15 @@ import { UserOptions } from '../../interfaces/user-options';
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
-  login: UserOptions = { username: '', password: '' };
-  submitted = false;
+  private login: UserOptions = { username: '', password: '' };
+  private submitted = false;
 
   constructor(
     public userData: UserData,
     public router: Router
   ) { }
 
-  onLogin(form: NgForm) {
+  private onLogin(form: NgForm) {
     this.submitted = true;
 
     if (form.valid) {
@@ -31,7 +31,7 @@ export class LoginPage {
     }
   }
 
-  onSignup() {
+  private onSignup() {
     this.router.navigateByUrl('/signup');
   }
 }

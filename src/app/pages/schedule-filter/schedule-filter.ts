@@ -10,9 +10,9 @@ import { ConferenceData } from '../../providers/conference-data';
   styleUrls: ['./schedule-filter.scss'],
 })
 export class ScheduleFilterPage {
-  ios: boolean;
+  private ios: boolean;
 
-  tracks: {name: string, icon: string, isChecked: boolean}[] = [];
+  private tracks: {name: string, icon: string, isChecked: boolean}[] = [];
 
   constructor(
     public confData: ConferenceData,
@@ -21,7 +21,7 @@ export class ScheduleFilterPage {
     public navParams: NavParams
   ) { }
 
-  ionViewWillEnter() {
+  private ionViewWillEnter() {
     this.ios = this.config.get('mode') === `ios`;
 
     // passed in array of track names that should be excluded (unchecked)
@@ -38,20 +38,20 @@ export class ScheduleFilterPage {
     });
   }
 
-  selectAll(check: boolean) {
+  private selectAll(check: boolean) {
     // set all to checked or unchecked
     this.tracks.forEach(track => {
       track.isChecked = check;
     });
   }
 
-  applyFilters() {
+  private applyFilters() {
     // Pass back a new array of track names to exclude
     const excludedTrackNames = this.tracks.filter(c => !c.isChecked).map(c => c.name);
     this.dismiss(excludedTrackNames);
   }
 
-  dismiss(data?: any) {
+  private dismiss(data?: any) {
     // using the injected ModalController this page
     // can "dismiss" itself and pass back data
     this.modalCtrl.dismiss(data);

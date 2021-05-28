@@ -18,31 +18,31 @@ import { UserData } from './providers/user-data';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-  appPages = [
+  private appPages = [
     {
-      title: 'Schedule',
+      title: 'Productos',
       url: '/app/tabs/schedule',
-      icon: 'calendar'
+      icon: 'pricetags'
     },
     {
-      title: 'Speakers',
+      title: 'Clientes',
       url: '/app/tabs/speakers',
       icon: 'people'
     },
     {
-      title: 'Map',
+      title: 'Pedidos',
       url: '/app/tabs/map',
-      icon: 'map'
+      icon: 'cart'
     },
     {
-      title: 'About',
+      title: 'Mensajes',
       url: '/app/tabs/about',
-      icon: 'information-circle'
+      icon: 'send'
     }
   ];
-  loggedIn = false;
-  dark = false;
-
+  private loggedIn = false;
+  private dark = false;
+  private imagenLogo = "/assets/img/Logo.png";
   constructor(
     private menu: MenuController,
     private platform: Platform,
@@ -82,26 +82,26 @@ export class AppComponent implements OnInit {
     });
   }
 
-  initializeApp() {
+  private initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
-  checkLoginStatus() {
+  private checkLoginStatus() {
     return this.userData.isLoggedIn().then(loggedIn => {
       return this.updateLoggedInStatus(loggedIn);
     });
   }
 
-  updateLoggedInStatus(loggedIn: boolean) {
+  private updateLoggedInStatus(loggedIn: boolean) {
     setTimeout(() => {
       this.loggedIn = loggedIn;
     }, 300);
   }
 
-  listenForLoginEvents() {
+  private listenForLoginEvents() {
     window.addEventListener('user:login', () => {
       this.updateLoggedInStatus(true);
     });
@@ -115,13 +115,13 @@ export class AppComponent implements OnInit {
     });
   }
 
-  logout() {
+  private logout() {
     this.userData.logout().then(() => {
       return this.router.navigateByUrl('/app/tabs/schedule');
     });
   }
 
-  openTutorial() {
+  private openTutorial() {
     this.menu.enable(false);
     this.storage.set('ion_did_tutorial', false);
     this.router.navigateByUrl('/tutorial');

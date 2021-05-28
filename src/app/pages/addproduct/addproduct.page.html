@@ -1,0 +1,175 @@
+<ion-header>
+  <ion-toolbar style="background-color: rgb(255, 210, 154)">
+    <ion-title>Añadir Producto</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="/tabs/schedule" (click)="atras()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="tasks" (ngSubmit)="this.sendForm()">
+    <ion-item style="margin-top: 13px;margin-bottom: 7px;">
+  
+      <ion-textarea 
+      formControlName="name"
+      placeholder="nombre"
+      autocapitalize="true"
+      auto-grow="true"></ion-textarea>
+    </ion-item>
+    <ion-item style="margin-top: 13px;margin-bottom: 7px;">
+    
+      <ion-textarea 
+      formControlName="descripcion"
+      placeholder="descripcion"
+      autocapitalize="true"
+      auto-grow="true"></ion-textarea>
+    </ion-item>
+ 
+    <ion-item style="margin-top: 15px;">
+     
+      <ion-select style="margin-left: 0px;"  value="categoria" okText="Ok" cancelText="Cancelar"  formControlName="categoria"
+      placeholder="Categoria" interface="action-sheet"   (ionChange)="cambiarcategoria2()"
+      autocapitalize="true" style="margin-top: 7px;margin-bottom: 7px;"
+      auto-grow="true">
+      <ion-select-option value="">Todos los productos</ion-select-option>
+      <ion-select-option value="movil">Accesorios para movil</ion-select-option>
+      <ion-select-option value="Tablets">Accesorios para Tablets</ion-select-option>
+      <ion-select-option value="Informática">Accesorios para Informática</ion-select-option>
+      <ion-select-option value="Smartwatch">Smartwatch</ion-select-option>
+      <ion-select-option value="Sónido">Sónido</ion-select-option>
+      <ion-select-option value="Décoracíon">Décoracíon Gaming/Cine</ion-select-option>
+      </ion-select>
+    </ion-item> 
+
+    <ion-item style="margin-top: 15px;" *ngIf="category1===1">
+     
+      <ion-select style="margin-left: 0px;"  value="categoria2" okText="Ok" cancelText="Cancelar"  formControlName="categoria2"
+      placeholder="TAG" interface="action-sheet"
+      autocapitalize="true" style="margin-top: 7px;margin-bottom: 7px;"
+      auto-grow="true">
+      
+        <ion-select-option value="Cargadores y Adaptadores">Cargadores y Adaptadores</ion-select-option>
+        <ion-select-option value="Power Bank">Power Bank</ion-select-option>
+        <ion-select-option value="Soportes">Soportes</ion-select-option>
+        <ion-select-option  value="Fundas y Protectores">Fundas y Protectores</ion-select-option>
+        <ion-select-option value="MemoryCards">MemoryCards</ion-select-option>
+        <ion-select-option value="Décoracíon">Otros</ion-select-option>
+      </ion-select>
+    </ion-item> 
+ 
+    <ion-item style="margin-top: 15px;" *ngIf="category1===2">
+     
+      <ion-select style="margin-left: 0px;"  value="categoria2" okText="Ok" cancelText="Cancelar"  formControlName="categoria2"
+      placeholder="TAG" interface="action-sheet"
+      autocapitalize="true" style="margin-top: 7px;margin-bottom: 7px;"
+      auto-grow="true">
+      
+        <ion-select-option value="Cargadores y Adaptadores">Cargadores y Adaptadores</ion-select-option>
+        <ion-select-option value="Power Bank">Power Bank</ion-select-option>
+        <ion-select-option value="Soportes">Soportes</ion-select-option>
+        <ion-select-option  value="Fundas y Protectores">Fundas y Protectores</ion-select-option>
+        <ion-select-option value="MemoryCards">MemoryCards</ion-select-option>
+        <ion-select-option value="Décoracíon">Otros</ion-select-option>
+      </ion-select>
+    </ion-item> 
+
+    <ion-item style="margin-top: 15px;" *ngIf="category1===3">
+     
+      <ion-select style="margin-left: 0px;"  value="categoria2" okText="Ok" cancelText="Cancelar"  formControlName="categoria2"
+      placeholder="TAG" interface="action-sheet"
+      autocapitalize="true" style="margin-top: 7px;margin-bottom: 7px;"
+      auto-grow="true">
+      <ion-select-option value="Ratones">Ratones</ion-select-option>
+      <ion-select-option value="Alfombrillas">Alfombrillas</ion-select-option>
+      <ion-select-option value="Teclados">Teclados</ion-select-option>
+      <ion-select-option value="Décoracíon">Otros</ion-select-option>
+     
+      </ion-select>
+    </ion-item> 
+
+    
+    <ion-item style="margin-top: 15px;" *ngIf="category1===5">
+     
+      <ion-select style="margin-left: 0px;"  value="categoria2" okText="Ok" cancelText="Cancelar"  formControlName="categoria2"
+      placeholder="TAG" interface="action-sheet"
+      autocapitalize="true" style="margin-top: 7px;margin-bottom: 7px;"
+      auto-grow="true">
+      <ion-select-option  value="móviles">Auriculares y Cascos</ion-select-option>
+      <ion-select-option value="Tablets">Altavoces</ion-select-option>
+      <ion-select-option value="informática">Cables Multimedia</ion-select-option>
+      <ion-select-option value="Décoracíon">Otros</ion-select-option>
+     
+     
+      </ion-select>
+    </ion-item> 
+
+
+
+ 
+  
+ 
+
+    <ion-item style="margin-top: 15px;">
+      <ion-label></ion-label>
+      <ion-input type="number"  formControlName="precio" style="margin-top: 7px;margin-bottom: 7px;"
+      placeholder="Precio(EUROS)"
+      autocapitalize="true"
+      auto-grow="true"></ion-input>
+    </ion-item>
+    <ion-item style="margin-top: 15px;">
+      <ion-label></ion-label>
+      <ion-input type="number"  formControlName="uds" style="margin-top: 7px;margin-bottom: 7px;"
+      placeholder="Unidades"
+      autocapitalize="true"
+      auto-grow="true"></ion-input>
+    </ion-item>
+    <ng-container >
+   
+    <ion-item style="margin-top: 5px;margin-left: 8px;"*ngIf="hayFoto()=== true">
+      Limpiar fotos
+      <ion-button style="color: darkred;" size="small" class="ion-no-margin" fill="round" slot="end"
+        (click)=" clearimagenes()" [disabled]="!tasks.valid">
+        <ion-icon name="trash-bin-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ng-container>
+    <ion-item>
+
+
+
+
+
+    <ion-slides style="margin-top: 20px;" pager="true" [options]="slideOpts">
+      <ion-slide>
+   
+        <ion-img *ngIf="image1" [src]="image1"  style=" margin-bottom: 30px;"></ion-img>
+        <h1  style="margin-top: 150px; margin-bottom: 110px;" *ngIf="image1==null" >Imagen 1</h1>
+      </ion-slide>
+      <ion-slide>
+        <ion-img *ngIf="imagen2"  [src]="imagen2" style=" margin-bottom: 30px;"></ion-img>
+        <h1  style="margin-top: 150px; margin-bottom: 110px;"  *ngIf="imagen2==null"  >Imagen 2</h1>
+      </ion-slide>
+      <ion-slide>
+        <ion-img *ngIf="imagen3" [src]="imagen3" style=" margin-bottom: 30px;"></ion-img>
+        <h1  style="margin-top: 150px; margin-bottom: 110px;"  *ngIf="imagen3==null">Imagen 3</h1>
+      </ion-slide>
+    </ion-slides>
+      </ion-item>
+      <div style="margin-top: 15px;">
+      <ion-button 
+      shape="round"
+      color="primary"
+      fill="outline"
+      (click)="presentAlertFotos()"
+     >añadir Foto</ion-button>
+     <ion-button 
+      shape="round"
+      color="primary"
+      fill="outline"
+      type="submit"
+      [disabled]="!tasks.valid">Añadir</ion-button>
+    </div>
+  </form>
+  <br>  <br>  <br>  <br>  <br>
+</ion-content>

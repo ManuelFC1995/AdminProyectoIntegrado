@@ -1,7 +1,17 @@
 .tabbar {
   justify-content: center;
+  --background:#ffdb7a ;
 }
 
 .tab-button {
   max-width: 200px;
+}
+
+ion-toolbar {
+  --background:#ffd562 ;
+}
+ion-tab-bar{
+
+  --background:#ffdb7a ;
+ 
 }

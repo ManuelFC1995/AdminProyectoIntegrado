@@ -26,12 +26,12 @@ import { PopoverController } from '@ionic/angular';
 export class PopoverPage {
   constructor(public popoverCtrl: PopoverController) {}
 
-  support() {
+  private support() {
     // this.app.getRootNavs()[0].push('/support');
     this.popoverCtrl.dismiss();
   }
 
-  close(url: string) {
+  private close(url: string) {
     window.open(url, '_blank');
     this.popoverCtrl.dismiss();
   }

@@ -1,40 +1,63 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, AlertController, Config, IonRouterOutlet, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-
+import { LoadingService } from '../../services/loading.service';
+import { UserData } from '../../providers/user-data';
+import { ApiService } from '../../services/api.service';
+import { Cliente } from '../../model/Cliente';
+import { PedidoPage } from '../pedido/pedido.page';
+import { Pedido } from '../../model/Pedido';
 @Component({
   selector: 'page-speaker-detail',
   templateUrl: 'speaker-detail.html',
   styleUrls: ['./speaker-detail.scss'],
 })
 export class SpeakerDetailPage {
-  speaker: any;
-
+  private speaker: any;
+  private cliente: Cliente;
+  private imagenPaypal = "/assets/img/Paypal.gif";
+  private imagenTarjeta = "/assets/img/Tarjeta.gif";
+  
+  private imagenEnvio = "/assets/img/envio.gif";
+  public profileimg: string = "/assets/img/profile.png";
   constructor(
     private dataProvider: ConferenceData,
     private route: ActivatedRoute,
     public actionSheetCtrl: ActionSheetController,
     public confData: ConferenceData,
     public inAppBrowser: InAppBrowser,
-  ) {}
+    public alertCtrl: AlertController,
 
-  ionViewWillEnter() {
-    this.dataProvider.load().subscribe((data: any) => {
+    public loadingCtrl: LoadingService,
+    public LOadingCTR: LoadingController,
+    public modalCtrl: ModalController,
+    public router: Router,
+    public routerOutlet: IonRouterOutlet,
+    public toastCtrl: ToastController,
+    public user: UserData,
+    public config: Config,
+    private modalController: ModalController,
+    private apiS: ApiService,
+  ) { }
+
+  async ngOnInit() {
+
+
+    this.dataProvider.load().subscribe(async (data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
-      if (data && data.speakers) {
-        for (const speaker of data.speakers) {
-          if (speaker && speaker.id === speakerId) {
-            this.speaker = speaker;
-            break;
-          }
-        }
-      }
+      this.cliente = await this.apiS.getUserId(speakerId);
+      console.log(this.cliente);
+
     });
   }
 
-  openExternalUrl(url: string) {
+  private ionViewWillEnter() {
+
+  }
+
+  private openExternalUrl(url: string) {
     this.inAppBrowser.create(
       url,
       '_blank'
@@ -102,5 +125,16 @@ export class SpeakerDetailPage {
     });
 
     await actionSheet.present();
+  }
+
+  public async Pedido(Pedido:Pedido){
+    const modal = await this.modalCtrl.create({
+      component: PedidoPage,
+      cssClass: 'my-custom-class',
+      componentProps:{
+        Pedido:Pedido
+      }
+    });
+    return await modal.present();
   }
 }
